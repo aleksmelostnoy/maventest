@@ -1,6 +1,7 @@
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
@@ -38,7 +39,7 @@ public class ChromeTest {
         String password = "MoscowNeverSleep22";
         driver.get("https://github.com/");
 
-        StartPage startPage = new StartPage(driver);
+        StartPage startPage = PageFactory.initElements(driver, StartPage.class);
         LoginPage loginPage = startPage.signIn();
         HomePage homePage = loginPage.loginAs(login, password);
         homePage.clickAvatar();
@@ -50,7 +51,6 @@ public class ChromeTest {
                 .select30minutsForClearStatus();
         homePage = statusPage.clickStatusButton();
         SettingsPage settingsPage = homePage.clickSettingsMenuItem();
-
 
         homePage.signOut();
 
